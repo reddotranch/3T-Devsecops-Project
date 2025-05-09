@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/codewithmuh/three-tier-devsecops-project.git'
+                git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/reddotranch/3T-Devsecops-Project.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -30,8 +30,8 @@ pipeline {
                             $SCANNER_HOME/bin/sonar-scanner \
                             -Dsonar.projectKey=frontend \
                             -Dsonar.sources=. \
-                            -Dsonar.host.url=http://44.244.210.204:9000 \
-                            -Dsonar.login=sqp_28cec81454b231cb6e7548987c134fe9213a0e93
+                            -Dsonar.host.url=http://54.149.108.255:9000 \
+                            -Dsonar.login=sqp_494e320f9c9b00585ce94a6461b0d3aa002bfe0d
                         '''
                     }
                 }
@@ -86,13 +86,13 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/codewithmuh/three-tier-devsecops-project.git'
+                git branch: 'main', credentialsId: 'GITHUB', url: 'https://github.com/reddotranch/3T-Devsecops-Project.git'
             }
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "three-tier-devsecops-project"
-                GIT_USER_NAME = "codewithmuh"
+                GIT_REPO_NAME = "3T-Devsecops-Project"
+                GIT_USER_NAME = "reddotranch"
             }
             steps {
                 dir('kubernetes-manifests/frontend') {
@@ -103,8 +103,8 @@ pipeline {
                             ls -l
                         '''
                         sh '''
-                            git config user.email "rashiddaha80@gmail.com"
-                            git config user.name "codewithmuh"
+                            git config user.email "thereddotranch@gmail.com"
+                            git config user.name "reddotranch"
                             BUILD_NUMBER=${BUILD_NUMBER}
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=frontend:)[^ ]+' deployment.yaml)
